@@ -63,21 +63,26 @@ async def _(event):
 
 @bot.on(man_cmd(outgoing=True, pattern=r"pp(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id,
-        "**PASANG PP DULU GOBLOK,BIAR ORANG-ORANG PADA TAU BETAPA HINA NYA MUKA LU 😆**"
+    await event.client.send_message(
+        event.chat_id,
+        "**PASANG PP DULU GOBLOK,BIAR ORANG-ORANG PADA TAU BETAPA HINA NYA MUKA LU 😆**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"dp(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, "**MUKA LU HINA, GAUSAH SOK KERAS YA ANJENGG!!**")
+    await event.client.send_message(
+        event.chat_id, "**MUKA LU HINA, GAUSAH SOK KERAS YA ANJENGG!!**"
+    )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"so(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, "**GAUSAH SOKAB SAMA GUA GOBLOK, LU BABU GA LEVEL!!**")
+    await event.client.send_message(
+        event.chat_id, "**GAUSAH SOKAB SAMA GUA GOBLOK, LU BABU GA LEVEL!!**"
+    )
     await event.delete()
 
 
@@ -85,73 +90,86 @@ async def _(event):
 async def _(event):
     if event.chat_id in BLACKLIST_CHAT:
         return await event.edit("**Perintah ini Dilarang digunakan di Group ini**")
-    await event.client.send_message(event.chat_id, "**MAEN BOT MULU ALAY NGENTOTT, KESANNYA NORAK GOBLOK!!!**")
+    await event.client.send_message(
+        event.chat_id, "**MAEN BOT MULU ALAY NGENTOTT, KESANNYA NORAK GOBLOK!!!**"
+    )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"met(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, "**NAMANYA JUGA JAMET CAPER SANA SINI BUAT CARI NAMA**")
+    await event.client.send_message(
+        event.chat_id, "**NAMANYA JUGA JAMET CAPER SANA SINI BUAT CARI NAMA**"
+    )
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"war(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**WAR WAR PALAK BAPAK KAU WAR, SOK KERAS BANGET GOBLOK, DI TONGKRONGAN JADI BABU, DI TELE SOK JAGOAN...**"
+    await event.client.send_message(
+        event.chat_id,
+        "**WAR WAR PALAK BAPAK KAU WAR, SOK KERAS BANGET GOBLOK, DI TONGKRONGAN JADI BABU, DI TELE SOK JAGOAN...**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"wartai(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**WAR WAR TAI ANJING, KETRIGGER MINTA SHARELOK LU KIRA MAU COD-AN GOBLOK, BACOTAN LU AJA KGA ADA KERAS KERASNYA GOBLOK**"
+    await event.client.send_message(
+        event.chat_id,
+        "**WAR WAR TAI ANJING, KETRIGGER MINTA SHARELOK LU KIRA MAU COD-AN GOBLOK, BACOTAN LU AJA KGA ADA KERAS KERASNYA GOBLOK**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"kismin(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**CUIHHHH, MAKAN AJA MASIH NGEMIS LO GOBLOK, JANGAN SO NINGGI YA KONTOL GA KEREN LU KEK GITU GOBLOK!!**"
+    await event.client.send_message(
+        event.chat_id,
+        "**CUIHHHH, MAKAN AJA MASIH NGEMIS LO GOBLOK, JANGAN SO NINGGI YA KONTOL GA KEREN LU KEK GITU GOBLOK!!**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"ded(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, "**MATI AJA LU GOBLOK, GAGUNA LU HIDUP DI BUMI**")
+    await event.client.send_message(
+        event.chat_id, "**MATI AJA LU GOBLOK, GAGUNA LU HIDUP DI BUMI**"
+    )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"sokab(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**SOKAB BET LU GOBLOK, KAGA ADA ISTILAH NYA BAWAHAN TEMENAN AMA BOS!!**"
+    await event.client.send_message(
+        event.chat_id,
+        "**SOKAB BET LU GOBLOK, KAGA ADA ISTILAH NYA BAWAHAN TEMENAN AMA BOS!!**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"gembel(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**MUKA BAPAK LU KEK KELAPA SAWIT ANJING, GA USAH NGATAIN ORANG, MUKA LU AJA KEK GEMBEL TEXAS GOBLOK!!**"
+    await event.client.send_message(
+        event.chat_id,
+        "**MUKA BAPAK LU KEK KELAPA SAWIT ANJING, GA USAH NGATAIN ORANG, MUKA LU AJA KEK GEMBEL TEXAS GOBLOK!!**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"cuih(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**GAK KEREN LO KEK BEGITU GOBLOK, KELUARGA LU BAWA SINI GUA LUDAHIN SATU-SATU. CUIHH!!!**"
+    await event.client.send_message(
+        event.chat_id,
+        "**GAK KEREN LO KEK BEGITU GOBLOK, KELUARGA LU BAWA SINI GUA LUDAHIN SATU-SATU. CUIHH!!!**",
     )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"dih(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, 
-        "**DIHHH NAJISS ANAK HARAM LO GOBLOK, JANGAN BELAGU DIMARI KAGA KEREN LU KEK BGITU TOLOL!**"
+    await event.client.send_message(
+        event.chat_id,
+        "**DIHHH NAJISS ANAK HARAM LO GOBLOK, JANGAN BELAGU DIMARI KAGA KEREN LU KEK BGITU TOLOL!**",
     )
     await event.delete()
 
@@ -160,13 +178,17 @@ async def _(event):
 async def _(event):
     if event.chat_id in BLACKLIST_CHAT:
         return await event.edit("**Perintah ini Dilarang digunakan di Group ini**")
-    await event.client.send_message(event.chat_id, "**GC SAMPAH KAYA GINI, BUBARIN AJA GOBLOK!!**")
+    await event.client.send_message(
+        event.chat_id, "**GC SAMPAH KAYA GINI, BUBARIN AJA GOBLOK!!**"
+    )
     await event.delete()
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"skb(?: |$)(.*)"))
 async def _(event):
-    await event.client.send_message(event.chat_id, "**EMANG KITA KENAL? KAGA GOBLOK SOKAB BANGET LU GOBLOK**")
+    await event.client.send_message(
+        event.chat_id, "**EMANG KITA KENAL? KAGA GOBLOK SOKAB BANGET LU GOBLOK**"
+    )
     await event.delete()
 
 
