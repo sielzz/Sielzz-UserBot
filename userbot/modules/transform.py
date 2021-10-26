@@ -16,13 +16,13 @@ from userbot.events import man_cmd
 @bot.on(man_cmd(outgoing=True, pattern=r"(mirror|flip|ghost|bw|poster)$"))
 async def transform(event):
     if not event.reply_to_msg_id:
-        await event.edit("`Reply to Any media..`")
+        await event.edit("**Mohon Reply ke Media atau Sticker**")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.edit("`reply to a image/sticker`")
+        await event.edit("**Mohon Reply ke Media atau Sticker**")
         return
-    await event.edit("`Downloading Media..`")
+    await event.edit("`Downloading Media...`")
     if reply_message.photo:
         transform = await bot.download_media(
             reply_message,
@@ -83,13 +83,13 @@ async def transform(event):
 @bot.on(man_cmd(outgoing=True, pattern=r"rotate(?: |$)(.*)"))
 async def rotate(event):
     if not event.reply_to_msg_id:
-        await event.edit("`Reply to any media..`")
+        await event.edit("**Mohon Reply ke Media atau Sticker**")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.edit("`reply to a image/sticker`")
+        await event.edit("**Mohon Reply ke Media atau Sticker**")
         return
-    await event.edit("`Downloading Media..`")
+    await event.edit("`Downloading Media...`")
     if reply_message.photo:
         rotate = await bot.download_media(
             reply_message,
@@ -126,7 +126,7 @@ async def rotate(event):
             raise ValueError
     except ValueError:
         value = 90
-    await event.edit("`Rotating your media..`")
+    await event.edit("`Rotating your media...`")
     im = Image.open(rotate).convert("RGB")
     IMG = im.rotate(value, expand=1)
     IMG.save(Converted, quality=95)
