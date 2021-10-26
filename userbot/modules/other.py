@@ -7,7 +7,6 @@
 # Thanks To Geez-UserBot <https://github.com/vckyou/Geez-UserBot>
 
 import os
-from asyncio import sleep
 
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
@@ -56,7 +55,9 @@ async def _(event):
             response = await response
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await edit_delete(event, f"**Unblock Terlebih dahulu {chat} dan coba lagi.**", 15)
+            await edit_delete(
+                event, f"**Unblock Terlebih dahulu {chat} dan coba lagi.**", 15
+            )
             return
         except BaseException:
             await edit_delete(event, "**Tidak dapat menemukan bot itu 🥺**", 10)
@@ -145,8 +146,8 @@ async def _(event):
     if not u:
         u = "me"
     a = await bot.get_messages(event.chat_id, 0, from_user=u)
-    await edit_or_reply(event,
-        f"**Total ada `{a.total}` Chat Yang dikirim Oleh saya di Grup Chat ini**"
+    await edit_or_reply(
+        event, f"**Total ada `{a.total}` Chat Yang dikirim Oleh saya di Grup Chat ini**"
     )
 
 
