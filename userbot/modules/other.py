@@ -296,7 +296,7 @@ CMD_HELP.update(
         "limit": f"**Plugin : **`limit`\
         \n\n  •  **Syntax :** `{cmd}limit`\
         \n  •  **Function : **Untuk Mengecek akun anda sedang terkena limit atau tidak dengan menggunakan @spambot.\
-        \n\n  •  **Syntax :** `{cmd}limited`\
+        \n\n  •  **Syntax :** `{cmd}limited` <sambil reply>\
         \n  •  **Function : **Untuk Mengecek akun anda atau orang lain sedang terkena limit atau tidak.\
     "
     }
