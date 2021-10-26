@@ -6,7 +6,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/mrismanaziz/man-userbot/badge)](https://www.codefactor.io/repository/github/mrismanaziz/man-userbot/badge/man-userbot)
 [![Codacy](https://app.codacy.com/project/badge/Grade/f9ee19c0de7c498ea85b0f95b8f2df1d)](https://www.codacy.com/gh/mrismanaziz/Man-Userbot/dashboard)
 [![Docker](https://img.shields.io/docker/image-size/mrismanaziz/man-userbot/buster?label=Docker%20Image%20Size&logo=docker)](https://hub.docker.com/r/mrismanaziz/man-userbot/tags)
-![Repo Size](https://img.shields.io/github/repo-size/mrismanaziz/Man-Userbot?&logo=github)
 
 Man-Userbot adalah userbot Telegram modular yang berjalan di Python3 dengan database sqlalchemy.
 
