@@ -886,17 +886,6 @@ CMD_HELP.update(
 
 CMD_HELP.update(
     {
-        "carbon": f"**Plugin : **`carbon`\
-        \n\n  •  **Syntax :** `{cmd}carbon` <text/reply>\
-        \n  •  **Function : **Percantik kode Anda menggunakan carbon.now.sh\
-        \n\n  •  **NOTE :** Gunakan {cmd}crblang <text> untuk menyetel bahasa kode Anda.\
-    "
-    }
-)
-
-
-CMD_HELP.update(
-    {
         "removebg": "**Plugin : **`removebg`\
         \n\n  •  **Syntax :** `{cmd}rbg` <Tautan ke Gambar> atau balas gambar apa pun (Peringatan: tidak berfungsi pada stiker.)\
         \n  •  **Function : **Menghapus latar belakang gambar, menggunakan API remove.bg\
@@ -910,16 +899,6 @@ CMD_HELP.update(
         "ocr": f"**Plugin : **`ocr`\
         \n\n  •  **Syntax :** `{cmd}ocr` <kode bahasa>\
         \n  •  **Function : **Balas gambar atau stiker untuk mengekstrak teks media tersebut.\
-    "
-    }
-)
-
-
-CMD_HELP.update(
-    {
-        "youtube": f"**Plugin : **`youtube`\
-        \n\n  •  **Syntax :** `{cmd}yt` <jumlah> <query>\
-        \n  •  **Function : **Melakukan Pencarian YouTube. Dapat menentukan jumlah hasil yang dibutuhkan (default adalah 5)\
     "
     }
 )
@@ -975,6 +954,8 @@ CMD_HELP.update(
 CMD_HELP.update(
     {
         "ytdl": f"**Plugin : **`ytdl`\
+        \n\n  •  **Syntax :** `{cmd}yt` <jumlah> <query>\
+        \n  •  **Function : **Melakukan Pencarian YouTube. Dapat menentukan jumlah hasil yang dibutuhkan (default adalah 5)\
         \n\n  •  **Syntax :** `{cmd}ytaudio` <url>\
         \n  •  **Function : **Untuk Mendownload lagu dari YouTube.\
         \n\n  •  **Syntax :** `{cmd}ytvideo` <url>\
