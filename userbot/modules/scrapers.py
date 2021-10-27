@@ -96,77 +96,6 @@ async def ocr_space_file(
     return r.json()
 
 
-@bot.on(man_cmd(outgoing=True, pattern=r"crblang (.*)"))
-async def setlang(prog):
-    global CARBONLANG
-    CARBONLANG = prog.pattern_match.group(1)
-    await prog.edit(f"Bahasa untuk carbon.now.sh mulai {CARBONLANG}")
-
-
-@bot.on(man_cmd(outgoing=True, pattern="carbon"))
-async def carbon_api(e):
-    """A Wrapper for carbon.now.sh"""
-    await e.edit("`Processing..`")
-    CARBON = "https://carbon.now.sh/?l={lang}&code={code}"
-    global CARBONLANG
-    textx = await e.get_reply_message()
-    pcode = e.text
-    if pcode[8:]:
-        pcode = str(pcode[8:])
-    elif textx:
-        pcode = str(textx.message)  # Importing message to module
-    code = quote_plus(pcode)  # Converting to urlencoded
-    await e.edit("`Processing..\n25%`")
-    if os.path.isfile("/root/userbot/.bin/carbon.png"):
-        os.remove("/root/userbot/.bin/carbon.png")
-    url = CARBON.format(code=code, lang=CARBONLANG)
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.binary_location = GOOGLE_CHROME_BIN
-    chrome_options.add_argument("--window-size=1920x1080")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-gpu")
-    prefs = {"download.default_directory": "/root/userbot/.bin"}
-    chrome_options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=chrome_options)
-    driver.get(url)
-    await e.edit("`Processing..\n50%`")
-    download_path = "/root/userbot/.bin"
-    driver.command_executor._commands["send_command"] = (
-        "POST",
-        "/session/$sessionId/chromium/send_command",
-    )
-    params = {
-        "cmd": "Page.setDownloadBehavior",
-        "params": {"behavior": "allow", "downloadPath": download_path},
-    }
-    driver.execute("send_command", params)
-    driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-    # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-    # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
-    await e.edit("`Processing..\n75%`")
-    # Waiting for downloading
-    while not os.path.isfile("/root/userbot/.bin/carbon.png"):
-        await sleep(0.5)
-    await e.edit("`Processing..\n100%`")
-    file = "/root/userbot/.bin/carbon.png"
-    await e.edit("`Uploading..`")
-    await e.client.send_file(
-        e.chat_id,
-        file,
-        caption="Made using [Carbon](https://carbon.now.sh/about/),\
-        \na project by [Dawn Labs](https://dawnlabs.io/)",
-        force_document=True,
-        reply_to=e.message.reply_to_msg_id,
-    )
-
-    os.remove("/root/userbot/.bin/carbon.png")
-    driver.quit()
-    # Removing carbon.png after uploading
-    await e.delete()  # Deleting msg
-
-
 @bot.on(man_cmd(outgoing=True, pattern=r"img (.*)"))
 async def img_sampler(event):
     """For .img command, search and return images matching the query."""
@@ -395,7 +324,7 @@ async def _(event):
         await event.edit(str(exc))
 
 
-@bot.on(man_cmd(pattern=r"\.lang (tr|tts) (.*)", outgoing=True))
+@bot.on(man_cmd(pattern=r"\lang (tr|tts) (.*)", outgoing=True))
 async def lang(value):
     """For .lang command, change the default langauge of userbot scrapers."""
     util = value.pattern_match.group(1).lower()
@@ -477,13 +406,16 @@ async def yt_search(video_q):
 async def download_video(v_url):
     """For .yt command, download media from YouTube and many other sites."""
     dl_type = v_url.pattern_match.group(1).lower()
-    url = v_url.pattern_match.group(2)
+    reso = v_url.pattern_match.group(2)
+    reso = reso.strip() if reso else None
+    url = v_url.pattern_match.group(3)
 
     await v_url.edit("`Preparing to download...`")
+    s_time = time.time()
     video = False
     audio = False
 
-    if dl_type == "audio":
+    if "audio" in dl_type:
         opts = {
             "format": "bestaudio",
             "addmetadata": True,
@@ -499,26 +431,38 @@ async def download_video(v_url):
                     "preferredquality": "320",
                 }
             ],
-            "outtmpl": "%(id)s.%(ext)s",
+            "outtmpl": os.path.join(
+                TEMP_DOWNLOAD_DIRECTORY, str(s_time), "%(title)s.%(ext)s"
+            ),
             "quiet": True,
             "logtostderr": False,
+            "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+            "proxy": "",
+            "extractor-args": "youtube:player_client=_music",
         }
         audio = True
 
-    elif dl_type == "video":
+    elif "video" in dl_type:
+        quality = (
+            f"bestvideo[height<={reso}]+bestaudio/best[height<={reso}]"
+            if reso
+            else "bestvideo+bestaudio/best"
+        )
         opts = {
-            "format": "best",
+            "format": quality,
             "addmetadata": True,
             "key": "FFmpegMetadata",
             "prefer_ffmpeg": True,
             "geo_bypass": True,
             "nocheckcertificate": True,
-            "postprocessors": [
-                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
-            ],
-            "outtmpl": "%(id)s.%(ext)s",
+            "outtmpl": os.path.join(
+                TEMP_DOWNLOAD_DIRECTORY, str(s_time), "%(title)s.%(ext)s"
+            ),
             "logtostderr": False,
             "quiet": True,
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75",
+            "proxy": "",
+            "extractor-args": "youtube:player_client=all",
         }
         video = True
 
@@ -553,27 +497,28 @@ async def download_video(v_url):
             f"**Sedang Mengupload Lagu:**\n`{rip_data.get('title')}`"
             f"\nby **{rip_data.get('uploader')}**"
         )
-        f_name = rip_data.get("id") + ".mp3"
+        f_name = glob(os.path.join(TEMP_DOWNLOAD_DIRECTORY, str(s_time), "*.mp3"))[0]
         with open(f_name, "rb") as f:
             result = await upload_file(
                 client=v_url.client,
                 file=f,
                 name=f_name,
-                progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress_callback=lambda d, t: get_event_loop().create_task(
                     progress(
                         d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp3"
                     )
                 ),
             )
-        img_extensions = ["jpg", "jpeg", "webp"]
-        img_filenames = [
-            fn_img
-            for fn_img in os.listdir()
-            if any(fn_img.endswith(ext_img) for ext_img in img_extensions)
-        ]
-        thumb_image = img_filenames[0]
+
+        thumb_image = [
+            x
+            for x in glob(os.path.join(TEMP_DOWNLOAD_DIRECTORY, str(s_time), "*"))
+            if not x.endswith(".mp3")
+        ][0]
         metadata = extractMetadata(createParser(f_name))
-        duration = metadata.get("duration").seconds if metadata.has("duration") else 0
+        duration = 0
+        if metadata and metadata.has("duration"):
+            duration = metadata.get("duration").seconds
         await v_url.client.send_file(
             v_url.chat_id,
             result,
@@ -587,31 +532,40 @@ async def download_video(v_url):
             ],
             thumb=thumb_image,
         )
-        os.remove(thumb_image)
-        os.remove(f_name)
         await v_url.delete()
     elif video:
         await v_url.edit(
             f"**Sedang Mengupload Video:**\n`{rip_data.get('title')}`"
             f"\nby **{rip_data.get('uploader')}**"
         )
-        f_name = rip_data.get("id") + ".mp4"
-        with open(f_name, "rb") as f:
+        f_path = glob(os.path.join(TEMP_DOWNLOAD_DIRECTORY, str(s_time), "*"))[0]
+        # Noob way to convert from .mkv to .mp4
+        if f_path.endswith(".mkv") or f_path.endswith(".webm"):
+            base = os.path.splitext(f_path)[0]
+            os.rename(f_path, base + ".mp4")
+            f_path = glob(os.path.join(TEMP_DOWNLOAD_DIRECTORY, str(s_time), "*"))[0]
+        f_name = os.path.basename(f_path)
+        with open(f_path, "rb") as f:
             result = await upload_file(
                 client=v_url.client,
                 file=f,
                 name=f_name,
-                progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(
-                        d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp4"
-                    )
+                progress_callback=lambda d, t: get_event_loop().create_task(
+                    progress(d, t, v_url, c_time, "Uploading..", f_name)
                 ),
             )
-        thumb_image = await get_video_thumb(f_name, "thumb.png")
-        metadata = extractMetadata(createParser(f_name))
-        duration = metadata.get("duration").seconds if metadata.has("duration") else 0
-        width = metadata.get("width") if metadata.has("width") else 0
-        height = metadata.get("height") if metadata.has("height") else 0
+        thumb_image = await get_video_thumb(f_path, "thumb.png")
+        metadata = extractMetadata(createParser(f_path))
+        duration = 0
+        width = 0
+        height = 0
+        if metadata:
+            if metadata.has("duration"):
+                duration = metadata.get("duration").seconds
+            if metadata.has("width"):
+                width = metadata.get("width")
+            if metadata.has("height"):
+                height = metadata.get("height")
         await v_url.client.send_file(
             v_url.chat_id,
             result,
@@ -624,9 +578,8 @@ async def download_video(v_url):
                     supports_streaming=True,
                 )
             ],
-            caption=rip_data["title"],
+            caption=f"[{rip_data.get('title')}]({url})",
         )
-        os.remove(f_name)
         os.remove(thumb_image)
         await v_url.delete()
 
