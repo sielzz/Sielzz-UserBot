@@ -38,6 +38,7 @@ from search_engine_parser.core.exceptions import NoResultsOrTrafficError
 from telethon.tl.types import DocumentAttributeAudio, MessageMediaPhoto
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
+from youtube_search import YoutubeSearch
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import (
     ContentTooShortError,
@@ -49,7 +50,6 @@ from yt_dlp.utils import (
     UnavailableVideoError,
     XAttrMetadataError,
 )
-from youtube_search import YoutubeSearch
 
 from userbot import BOTLOG, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
