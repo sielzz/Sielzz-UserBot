@@ -399,7 +399,7 @@ async def yt_search(video_q):
     await video_q.edit(output, link_preview=False)
 
 
-@bot.on(man_cmd(outgoing=True, pattern=r"yt(audio|video) (.*)"))
+@bot.on(man_cmd(outgoing=True, pattern=r"yt(audio|video( \d{0,4})?) (.*)"))
 async def download_video(v_url):
     """For .yt command, download media from YouTube and many other sites."""
     dl_type = v_url.pattern_match.group(1).lower()
