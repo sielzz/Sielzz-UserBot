@@ -424,6 +424,7 @@ async def download_video(v_url):
             "prefer_ffmpeg": True,
             "geo_bypass": True,
             "nocheckcertificate": True,
+            "noprogress": True,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
@@ -455,6 +456,7 @@ async def download_video(v_url):
             "prefer_ffmpeg": True,
             "geo_bypass": True,
             "nocheckcertificate": True,
+            "noprogress": True,
             "outtmpl": os.path.join(
                 TEMP_DOWNLOAD_DIRECTORY, str(s_time), "%(title)s.%(ext)s"
             ),
