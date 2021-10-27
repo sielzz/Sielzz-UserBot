@@ -18,7 +18,7 @@ import os
 import re
 import shutil
 import time
-from asyncio import sleep
+from asyncio import get_event_loop, sleep
 from glob import glob
 from re import findall, match
 
