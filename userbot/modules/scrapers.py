@@ -71,10 +71,8 @@ from userbot.utils import (
     progress,
 )
 
-CARBONLANG = "auto"
 TTS_LANG = "id"
 TRT_LANG = "id"
-TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
 
 async def ocr_space_file(
