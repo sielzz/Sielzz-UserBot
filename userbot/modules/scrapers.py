@@ -19,6 +19,7 @@ import re
 import shutil
 import time
 from asyncio import sleep
+from glob import glob
 from re import findall, match
 
 import asyncurban
@@ -62,6 +63,7 @@ from userbot import (
     bot,
 )
 from userbot.events import man_cmd
+from userbot.modules.upload_download import get_video_thumb
 from userbot.utils import (
     chrome,
     edit_delete,
@@ -70,6 +72,7 @@ from userbot.utils import (
     options,
     progress,
 )
+from userbot.utils.FastTelethon import upload_file
 
 TTS_LANG = "id"
 TRT_LANG = "id"
