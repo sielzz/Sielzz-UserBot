@@ -321,7 +321,7 @@ async def _(event):
         await event.edit(str(exc))
 
 
-@bot.on(man_cmd(pattern=r"\lang (tr|tts) (.*)", outgoing=True))
+@bot.on(man_cmd(pattern=r"lang (tr|tts) (.*)", outgoing=True))
 async def lang(value):
     """For .lang command, change the default langauge of userbot scrapers."""
     util = value.pattern_match.group(1).lower()
