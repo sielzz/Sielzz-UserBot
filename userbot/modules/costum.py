@@ -18,7 +18,7 @@ from userbot import CMD_HELP, bot
 from userbot.events import man_cmd, register
 
 
-@bot.on(man_cmd(outgoing=True, pattern=r"\.(\S+)")
+@bot.on(man_cmd(outgoing=True, pattern=r"\.(\S+)"))
 async def on_snip(event):
     """costums logic."""
     try:
