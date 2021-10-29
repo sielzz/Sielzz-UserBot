@@ -27,7 +27,7 @@ async def direct_link_generator(event):
         if textx:
             message = textx.text
         else:
-            return await edit_delete(event, "**Gunakan:** `.direct <url>`")
+            return await edit_delete(event, "**Gunakan:** `.direct <url>` **Bila butuh bantuan ketik** `.help direct`")
     xxnx = await edit_or_reply(event, "`Processing...`")
     reply = ""
     links = re.findall(r"\bhttps?://.*\.\S+", message)
@@ -83,7 +83,7 @@ def gdrive(url: str) -> str:
         # In case of small file size, Google downloads directly
         dl_url = download.headers["location"]
         if "accounts.google.com" in dl_url:  # non-public file
-            reply += "`Link is not public!`\n"
+            reply += "**Link Tautan tidak bersifat publik!**\n"
             return reply
         name = "Direct Download Link"
     except KeyError:
@@ -110,7 +110,7 @@ def zippy_share(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*zippyshare\.com\S+", url)[0]
     except IndexError:
-        reply = "`No ZippyShare links found`\n"
+        reply = "**Tidak ada link tautan ZippyShare yang ditemukan**\n"
         return reply
     session = requests.Session()
     base_url = re.search("http.+.com", link).group()
@@ -140,7 +140,7 @@ def yandex_disk(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*yadi\.sk\S+", url)[0]
     except IndexError:
-        reply = "`No Yandex.Disk links found`\n"
+        reply = "**Tidak link tautan Yandex.Disk ditemukan link tautan**\n"
         return reply
     api = "https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key={}"
     try:
@@ -148,7 +148,7 @@ def yandex_disk(url: str) -> str:
         name = dl_url.split("filename=")[1].split("&disposition")[0]
         reply += f"[{name}]({dl_url})\n"
     except KeyError:
-        reply += "`Error: File not found / Download limit reached`\n"
+        reply += "**ERROR: File tidak ditemukan atau Batas download tercapai**\n"
         return reply
     return reply
 
@@ -160,7 +160,7 @@ def mega_dl(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*mega.*\.nz\S+", url)[0]
     except IndexError:
-        reply = "`No MEGA.nz links found`\n"
+        reply = "**Tidak ada link tautan MEGA.nz yang ditemukan**\n"
         return reply
     command = f"bin/megadown -q -m {link}"
     result = popen(command).read()
@@ -168,7 +168,7 @@ def mega_dl(url: str) -> str:
         data = json.loads(result)
         LOGS.info(data)
     except json.JSONDecodeError:
-        reply += "`Error: Can't extract the link`\n"
+        reply += "**ERROR: Tidak dapat mengekstrak link**\n"
         return reply
     dl_url = data["url"]
     name = data["file_name"]
@@ -184,7 +184,7 @@ def cm_ru(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*cloud\.mail\.ru\S+", url)[0]
     except IndexError:
-        reply = "`No cloud.mail.ru links found`\n"
+        reply = "**Tidak ada link tautan cloud.mail.ru yang ditemukan**\n"
         return reply
     command = f"bin/cmrudl -s {link}"
     result = popen(command).read()
@@ -192,7 +192,7 @@ def cm_ru(url: str) -> str:
     try:
         data = json.loads(result)
     except json.decoder.JSONDecodeError:
-        reply += "`Error: Can't extract the link`\n"
+        reply += "**ERROR: Tidak dapat mengekstrak link tautan**\n"
         return reply
     dl_url = data["download"]
     name = data["file_name"]
@@ -206,7 +206,7 @@ def mediafire(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*mediafire\.com\S+", url)[0]
     except IndexError:
-        reply = "`No MediaFire links found`\n"
+        reply = "**Tidak ada link tautan MediaFire yang ditemukan**\n"
         return reply
     reply = ""
     page = BeautifulSoup(requests.get(link).content, "lxml")
@@ -223,10 +223,10 @@ def sourceforge(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*sourceforge\.net\S+", url)[0]
     except IndexError:
-        reply = "`No SourceForge links found`\n"
+        reply = "**Tidak ada link tautan SourceForge yang ditemukan**\n"
         return reply
     file_path = re.findall(r"files([\s\S]*)/download", link)[0]
-    reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
+    reply = f"Mirrors untuk __{file_path.split('/')[-1]}__\n"
     project = re.findall(r"projects?/(.*?)/files", link)[0]
     mirrors = (
         f"https://sourceforge.net/settings/mirror_choices?"
@@ -249,12 +249,12 @@ def osdn(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*osdn\.net\S+", url)[0]
     except IndexError:
-        reply = "`No OSDN links found`\n"
+        reply = "**Tidak ada link tautan OSDN yang ditemukan**\n"
         return reply
     page = BeautifulSoup(requests.get(link, allow_redirects=True).content, "lxml")
     info = page.find("a", {"class": "mirror_link"})
     link = urllib.parse.unquote(osdn_link + info["href"])
-    reply = f"Mirrors for __{link.split('/')[-1]}__\n"
+    reply = f"Mirrors untuk __{link.split('/')[-1]}__\n"
     mirrors = page.find("form", {"id": "mirror-select-form"}).findAll("tr")
     for data in mirrors[1:]:
         mirror = data.find("input")["value"]
@@ -269,7 +269,7 @@ def github(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*github\.com.*releases\S+", url)[0]
     except IndexError:
-        reply = "`No GitHub Releases links found`\n"
+        reply = "**Tidak ada link tautan Rilis GitHub yang ditemukan**\n"
         return reply
     reply = ""
     dl_url = ""
@@ -277,7 +277,7 @@ def github(url: str) -> str:
     try:
         dl_url = download.headers["location"]
     except KeyError:
-        reply += "`Error: Can't extract the link`\n"
+        reply += "**ERROR: Tidak dapat mengekstrak link tautan**\n"
     name = link.split("/")[-1]
     reply += f"[{name}]({dl_url}) "
     return reply
@@ -288,7 +288,7 @@ def androidfilehost(url: str) -> str:
     try:
         link = re.findall(r"\bhttps?://.*androidfilehost.*fid.*\S+", url)[0]
     except IndexError:
-        reply = "`No AFH links found`\n"
+        reply = "**Tidak ada link tautan AFH yang ditemukan**\n"
         return reply
     fid = re.findall(r"\?fid=([\s\S]*)", link)[0]
     session = requests.Session()
@@ -310,7 +310,7 @@ def androidfilehost(url: str) -> str:
     data = {"submit": "submit", "action": "getdownloadmirrors", "fid": f"{fid}"}
     mirrors = None
     reply = ""
-    error = "`Error: Can't find Mirrors for the link`\n"
+    error = "**ERROR: Tidak dapat menemukan Mirror untuk link tautan**\n"
     try:
         req = session.post(
             "https://androidfilehost.com/libs/otf/mirrors.otf.php",
