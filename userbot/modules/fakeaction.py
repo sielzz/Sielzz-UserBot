@@ -18,7 +18,12 @@ from userbot.events import man_cmd
 from userbot.utils import edit_delete, extract_time
 
 
-@bot.on(man_cmd(outgoing=True, pattern="f(typing|audio|contact|document|game|location|photo|round|video) ?(.*)"))
+@bot.on(
+    man_cmd(
+        outgoing=True,
+        pattern="f(typing|audio|contact|document|game|location|photo|round|video) ?(.*)",
+    )
+)
 async def _(e):
     act = e.pattern_match.group(1)
     t = e.pattern_match.group(2)
