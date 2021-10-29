@@ -11,6 +11,7 @@
 
 from userbot import BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
+from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
 
 @register(outgoing=True, pattern=r"\.\w*", ignore_unsafe=True, disable_errors=True)
@@ -18,7 +19,7 @@ async def on_snip(event):
     """costums logic."""
     try:
         from userbot.modules.sql_helper.snips_sql import get_snip
-    except AttributeError:
+    except (ArgumentError, UnmappedInstanceError):
         return
     name = event.text[1:]
     snip = get_snip(name)
@@ -49,7 +50,7 @@ async def on_snip_save(event):
     """For .costum command, saves costums for future use."""
     try:
         from userbot.modules.sql_helper.snips_sql import add_snip
-    except AtrributeError:
+    except (ArgumentError, UnmappedInstanceError):
         await event.edit("**Berjalan pada mode Non-SQL!**")
         return
     keyword = event.pattern_match.group(1)
@@ -90,7 +91,7 @@ async def on_snip_list(event):
     """For .costums command, lists costums saved by you."""
     try:
         from userbot.modules.sql_helper.snips_sql import get_snips
-    except AttributeError:
+    except (ArgumentError, UnmappedInstanceError):
         await event.edit("**Berjalan pada mode Non-SQL!**")
         return
 
@@ -108,7 +109,7 @@ async def on_snip_delete(event):
     """For .delcostum command, deletes a costum."""
     try:
         from userbot.modules.sql_helper.snips_sql import remove_snip
-    except AttributeError:
+    except (ArgumentError, UnmappedInstanceError):
         await event.edit("**Berjalan pada mode Non-SQL!**")
         return
     name = event.pattern_match.group(1)
