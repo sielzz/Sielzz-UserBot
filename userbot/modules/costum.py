@@ -9,10 +9,11 @@
 #
 """ Userbot module containing commands for keeping costum global notes. """
 
+from sqlalchemy.exc import ArgumentError
+from sqlalchemy.orm.exc import UnmappedInstanceError
+
 from userbot import BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
-from sqlalchemy.exc import ArgumentError
-from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
 
 @register(outgoing=True, pattern=r"\.\w*", ignore_unsafe=True, disable_errors=True)
