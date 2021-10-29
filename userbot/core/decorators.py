@@ -10,8 +10,7 @@ from userbot.modules.sql_helper.globals import gvarstatus
 def check_owner(func):
     async def wrapper(c_q: CallbackQuery):
         if c_q.query.user_id and (
-            c_q.query.user_id == OWNER_ID
-            or c_q.query.user_id in SUDO_USERS
+            c_q.query.user_id == OWNER_ID or c_q.query.user_id in SUDO_USERS
         ):
             try:
                 await func(c_q)
