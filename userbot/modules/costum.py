@@ -11,6 +11,7 @@
 
 from userbot import BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
+from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
 
