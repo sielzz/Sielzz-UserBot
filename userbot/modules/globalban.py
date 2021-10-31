@@ -8,14 +8,17 @@ import asyncio
 import base64
 from datetime import datetime
 
+from telethon import events
 from telethon.errors import BadRequestError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.tl.types import Channel, ChatBannedRights, MessageEntityMentionName
 
 import userbot.modules.sql_helper.gban_sql as gban_sql
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, DEVS
-from userbot.events import register
+from userbot import BOTLOG, BOTLOG_CHATID
+from userbot import CMD_HANDLER as cmd
+from userbot import CMD_HELP, DEVS, bot
+from userbot.events import man_cmd, register
 from userbot.utils import edit_delete, edit_or_reply
 
 BANNED_RIGHTS = ChatBannedRights(
@@ -101,12 +104,12 @@ async def get_user_from_event(event, uevent=None, secondgroup=None):
     return user_obj, extra
 
 
-@register(outgoing=True, pattern=r"^\.gban(?: |$)(.*)")
-@register(incoming=True, from_users=DEVS, pattern=r"^\.gban(?: |$)(.*)")
+@bot.on(man_cmd(outgoing=True, pattern=r"gban(?: |$)(.*)"))
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cgban(?: |$)(.*)")
 async def gban(event):
     if event.fwd_from:
         return
-    gbun = await edit_or_reply(event, "`Gbanning.......`")
+    gbun = await edit_or_reply(event, "`Gbanning...`")
     start = datetime.now()
     user, reason = await get_user_from_event(event, gbun)
     if not user:
@@ -159,43 +162,13 @@ async def gban(event):
             f"**GBanned** [{user.first_name}](tg://user?id={user.id}) **in** `{count}` **groups in** `{timetaken}` **seconds**!!\n**Added to gbanlist.**"
         )
 
-    if BOTLOG and count != 0:
-        reply = await event.get_reply_message()
-        if reason:
-            await event.client.send_message(
-                BOTLOG_CHATID,
-                f"#GBAN\
-                \nGlobal Ban\
-                \n**User : **[{user.first_name}](tg://user?id={user.id})\
-                \n**ID : **`{user.id}`\
-                \n**Reason :** `{reason}`\
-                \n__Banned in {count} groups__\
-                \n**Time taken : **`{timetaken} seconds`",
-            )
-        else:
-            await event.client.send_message(
-                BOTLOG_CHATID,
-                f"#GBAN\
-                \nGlobal Ban\
-                \n**User : **[{user.first_name}](tg://user?id={user.id})\
-                \n**ID : **`{user.id}`\
-                \n__Banned in {count} groups__\
-                \n**Time taken : **`{timetaken} seconds`",
-            )
-        try:
-            if reply:
-                await reply.forward_to(BOTLOG_CHATID)
-                await reply.delete()
-        except BadRequestError:
-            pass
 
-
-@register(outgoing=True, pattern=r"^\.ungban(?: |$)(.*)")
+@bot.on(man_cmd(outgoing=True, pattern=r"ungban(?: |$)(.*)"))
 @register(incoming=True, from_users=DEVS, pattern=r"^\.cungban(?: |$)(.*)")
 async def ungban(event):
     if event.fwd_from:
         return
-    ungbun = await edit_or_reply(event, "`UnGbanning.....`")
+    ungbun = await edit_or_reply(event, "`UnGbanning...`")
     start = datetime.now()
     user, reason = await get_user_from_event(event, ungbun)
     if not user:
@@ -238,31 +211,8 @@ async def ungban(event):
             f"**Ungbanned** [{user.first_name}](tg://user?id={user.id}) **in** `{count}` **groups in** `{timetaken}` **seconds**!!\n**Removed from gbanlist**"
         )
 
-    if BOTLOG and count != 0:
-        if reason:
-            await event.client.send_message(
-                BOTLOG_CHATID,
-                f"#UNGBAN\
-                \nGlobal Unban\
-                \n**User : **[{user.first_name}](tg://user?id={user.id})\
-                \n**ID : **`{user.id}`\
-                \n**Reason :** `{reason}`\
-                \n__Unbanned in {count} groups__\
-                \n**Time taken : **`{timetaken} seconds`",
-            )
-        else:
-            await event.client.send_message(
-                BOTLOG_CHATID,
-                f"#UNGBAN\
-                \nGlobal Unban\
-                \n**User : **[{user.first_name}](tg://user?id={user.id})\
-                \n**ID : **`{user.id}`\
-                \n__Unbanned in {count} groups__\
-                \n**Time taken : **`{timetaken} seconds`",
-            )
 
-
-@register(outgoing=True, pattern=r"^\.listgban$")
+@bot.on(man_cmd(outgoing=True, pattern=r"listgban$"))
 async def gablist(event):
     if event.fwd_from:
         return
@@ -281,6 +231,25 @@ async def gablist(event):
     await edit_or_reply(event, GBANNED_LIST)
 
 
+@bot.on(events.ChatAction)
+async def _(event):
+    if event.user_joined or event.added_by:
+        user = await event.get_user()
+        chat = await event.get_chat()
+        if gban_sql.is_gbanned(user.id) and chat.admin_rights:
+            try:
+                await event.client.edit_permissions(
+                    chat.id,
+                    user.id,
+                    view_messages=False,
+                )
+                await event.reply(
+                    f"**#GBanned_User** Joined.\n\n** • First Name:** [{user.first_name}](tg://user?id={user.id})\n • **Action:** `Banned`"
+                )
+            except BaseException:
+                pass
+
+
 # Ported by @mrismanaziz
 # FROM Man-Userbot <https://github.com/mrismanaziz/Man-Userbot>
 # t.me/SharingUserbot
@@ -288,12 +257,12 @@ async def gablist(event):
 
 CMD_HELP.update(
     {
-        "gban": "**Plugin : **`gban`\
-        \n\n  •  **Syntax :** `.gban` <username/id>\
+        "gban": f"**Plugin : **`gban`\
+        \n\n  •  **Syntax :** `{cmd}gban` <username/id>\
         \n  •  **Function : **Melakukan Banned Secara Global Ke Semua Grup Dimana anda Sebagai Admin.\
-        \n\n  •  **Syntax :** `.ungban` <username/id>\
+        \n\n  •  **Syntax :** `{cmd}ungban` <username/id>\
         \n  •  **Function : **Membatalkan Global Banned\
-        \n\n  •  **Syntax :** `.listgban`\
+        \n\n  •  **Syntax :** `{cmd}listgban`\
         \n  •  **Function : **Menampilkan List Global Banned\
     "
     }
