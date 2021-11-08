@@ -9,7 +9,7 @@ from datetime import datetime
 from telethon import events
 from telethon.errors import BadRequestError, FloodWaitError, ForbiddenError
 
-from userbot import BOT_USERNAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, OWNER_ID, tgbot
+from userbot import BOT_USERNAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, tgbot, uid
 from userbot.events import register
 from userbot.modules.botmanagers import (
     ban_user_from_bot,
@@ -31,6 +31,7 @@ from userbot.utils.logger import logging
 
 LOGS = logging.getLogger(__name__)
 botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
+OWNER_ID = uid
 
 
 @tgbot.on(events.NewMessage(pattern=r"^/help$", from_users=OWNER_ID))
