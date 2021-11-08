@@ -20,9 +20,9 @@ from userbot import (
     BOTLOG_CHATID,
     CHANNEL,
     GROUP,
-    OWNER_ID,
     SUDO_USERS,
     tgbot,
+    uid,
 )
 from userbot.core import check_owner, pool
 from userbot.modules.botmanagers import ban_user_from_bot
@@ -44,6 +44,7 @@ from userbot.utils.logger import logging
 LOGS = logging.getLogger(__name__)
 
 botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
+OWNER_ID = uid
 
 
 class FloodConfig:
