@@ -54,7 +54,9 @@ async def autobot():
     if BOT_TOKEN:
         return addgvar("BOT_TOKEN", BOT_TOKEN)
     await bot.start()
-    await bot.send_message(BOTLOG_CHATID, "SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather")
+    await bot.send_message(
+        BOTLOG_CHATID, "SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather"
+    )
     who = await bot.get_me()
     name = who.first_name + " Assistant Bot"
     if who.username:
@@ -106,7 +108,10 @@ async def autobot():
             await bot.send_message(bf, f"@{username}")
             await asyncio.sleep(1)
             await bot.send_message(bf, "Search")
-            await bot.send_message(BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}")
+            await bot.send_message(
+                BOTLOG_CHATID,
+                f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}",
+            )
         else:
             LOGS.info(
                 "Silakan Hapus Beberapa Bot Telegram Anda di @Botfather atau Set Var BOT_TOKEN dengan token bot"
@@ -121,7 +126,9 @@ async def autobot():
         await bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
         await bot.send_message(bf, "Search")
-        await bot.send_message(BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}")
+        await bot.send_message(
+            BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}"
+        )
     else:
         LOGS.info(
             "Silakan Hapus Beberapa Bot Telegram Anda di @Botfather atau Set Var BOT_TOKEN dengan token bot"
