@@ -101,6 +101,7 @@ async def autobot():
             token = nowdone.split("`")[1]
             addgvar("BOT_TOKEN", f"{token}")
             addgvar("BOT_USERNAME", f"@{username}")
+            addgvar("OWNER_ID", f"{who.id}")
             await bot.send_message(bf, "/setinline")
             await asyncio.sleep(1)
             await bot.send_message(bf, f"@{username}")
@@ -116,6 +117,7 @@ async def autobot():
         token = isdone.split("`")[1]
         addgvar("BOT_TOKEN", f"{token}")
         addgvar("BOT_USERNAME", f"@{username}")
+        addgvar("OWNER_ID", f"{who.id}")
         await bot.send_message(bf, "/setinline")
         await asyncio.sleep(1)
         await bot.send_message(bf, f"@{username}")
