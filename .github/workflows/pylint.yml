@@ -13,18 +13,22 @@ jobs:
         run: pip install autopep8 autoflake isort black
       - name: Check for showstoppers
         run: |
-          autopep8 --verbose --in-place --recursive --aggressive --aggressive userbot/*.py
-          autopep8 --verbose --in-place --recursive --aggressive --aggressive userbot/modules/*.py
+          autopep8 --verbose --in-place --recursive --aggressive --aggressive . *.py
       - name: Remove unused imports and variables
         run: |
-          autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports userbot/*.py
-          autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports userbot/modules/*.py
+          autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports . *.py
       - name: lint with isort and black
         run: |
           isort userbot/*.py
+          isort userbot/core/*.py
           isort userbot/modules/*.py
+          isort userbot/modules/sql_helper/*.py
+          isort userbot/utils/*.py
           black userbot/*.py
+          black userbot/core/*.py
           black userbot/modules/*.py
+          black userbot/modules/sql_helper/*.py
+          black userbot/utils/*.py
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
@@ -34,8 +38,6 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
-
-      # commit changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'Man-Userbot: auto fixes'
