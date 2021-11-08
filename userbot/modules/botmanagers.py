@@ -63,7 +63,7 @@ async def ban_user_from_bot(user, reason, reply_to=None):
     except Exception as e:
         LOGS.error(str(e))
     banned_msg = (
-        f"**Anda Telah Dibanned Selamanya Menggunakan Bot ini.\nKarena:** `{reason}`"
+        f"**Anda Telah Dibanned Selamanya.\nKarena:** `{reason}`"
     )
     await tgbot.send_message(user.id, banned_msg)
     info = f"**#Banned_Bot_PM_User**\
@@ -80,7 +80,7 @@ async def unban_user_from_bot(user, reason, reply_to=None):
         rem_user_from_bl(user.id)
     except Exception as e:
         LOGS.error(str(e))
-    banned_msg = "**Anda Telah diunbanned dari Bot ini. Mulai sekarang Anda dapat mengirim pesan lagi disini untuk menghubungi tuan saya.**"
+    banned_msg = "**Anda Telah diunbanned dari Bot ini.**"
 
     if reason is not None:
         banned_msg += f"\n**Karena:** __{reason}__"
