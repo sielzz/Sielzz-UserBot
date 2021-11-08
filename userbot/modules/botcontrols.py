@@ -9,8 +9,9 @@ from datetime import datetime
 from telethon import events
 from telethon.errors import BadRequestError, FloodWaitError, ForbiddenError
 
+from userbot import CMD_HANDLER as cmd
 from userbot import BOT_USERNAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, tgbot, uid
-from userbot.events import register
+from userbot.events import man_cmd
 from userbot.modules.botmanagers import (
     ban_user_from_bot,
     get_user_and_reason,
@@ -110,7 +111,7 @@ async def bot_broadcast(event):
     await br_cast.edit(b_info, parse_mode="html")
 
 
-@register(outgoing=True, pattern=r"^\.botuser$")
+@bot.on(man_cmd(outgoing=True, pattern=r"botuser$"))
 async def ban_starters(event):
     "To get list of users who started bot."
     ulist = get_all_starters()
@@ -184,7 +185,7 @@ async def ban_botpms(event):
     await event.reply(msg)
 
 
-@register(outgoing=True, pattern=r"^\.bblist$")
+@bot.on(man_cmd(outgoing=True, pattern=r"bblist$"))
 async def ban_starters(event):
     "To get list of users who are banned in bot."
     ulist = get_all_bl_users()
@@ -196,7 +197,7 @@ async def ban_starters(event):
     await edit_or_reply(event, msg)
 
 
-@register(outgoing=True, pattern=r"^\.botflood (on|off)$")
+@bot.on(man_cmd(outgoing=True, pattern=r"botflood (on|off)$"))
 async def ban_antiflood(event):
     "To enable or disable bot antiflood."
     input_str = event.pattern_match.group(1)
@@ -214,14 +215,13 @@ async def ban_antiflood(event):
 
 CMD_HELP.update(
     {
-        "pmbot": "**Plugin : **`pmbot`\
-        \n\n  •  **Syntax :** `.botflood` <on/off>\
-        \n  •  **Function : **Untuk mengaktfikan anti flood di bot.\
-        \n\n  •  **Syntax :** `.bblist`\
+        "pmbot": f"**Plugin : **`pmbot`\
+        \n\n  •  **Syntax :** `{cmd}botflood` <on/off>\
+        \n  •  **Function : **Untuk mengaktfikan/mematikan anti flood di bot.\
+        \n\n  •  **Syntax :** `{cmd}bblist`\
         \n  •  **Function : **Untuk Melihat Daftar pengguna yang dibanned di bot Anda.\
-        \n\n  •  **Syntax :** `.botuser`\
+        \n\n  •  **Syntax :** `{cmd}botuser`\
         \n  •  **Function : **Untuk Melihat Daftar Pengguna yang Memulai Bot Anda.\
-        \n\n  •  **Cara Mengaktfikan Pesan Pribadi dengan Bot.**\
     "
     }
 )
