@@ -37,7 +37,7 @@ botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
 async def bot_help(event):
     await event.reply(
         f"""**Perintah di Bot ini adalah:**\n
-**NOTE: Perintah ini hanya berfungsi di **{botusername}**\n
+**NOTE: Perintah ini hanya berfungsi di {botusername}**\n
  • **Command : **/uinfo <reply ke pesan>
  • **Function : **__Untuk Mencari Info Pengirim Pesan.__\n
  • **Command : **/ban <alasan> atau /ban <username/userid> <alasan>
