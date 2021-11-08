@@ -14,7 +14,6 @@ from telethon.events import CallbackQuery, StopPropagation
 from telethon.utils import get_display_name
 
 from userbot import (
-    ALIVE_NAME,
     BOT_USERNAME,
     BOTLOG,
     BOTLOG_CHATID,
