@@ -9,8 +9,9 @@ from datetime import datetime
 from telethon import events
 from telethon.errors import BadRequestError, FloodWaitError, ForbiddenError
 
+from userbot import BOT_USERNAME, BOTLOG, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
-from userbot import BOT_USERNAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, tgbot, uid
+from userbot import CMD_HELP, tgbot, uid
 from userbot.events import man_cmd
 from userbot.modules.botmanagers import (
     ban_user_from_bot,
