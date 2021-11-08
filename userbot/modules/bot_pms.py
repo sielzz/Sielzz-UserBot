@@ -44,6 +44,7 @@ LOGS = logging.getLogger(__name__)
 
 botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
 OWNER_ID = user.id
+OWNER = user.first_name
 
 
 class FloodConfig:
@@ -118,7 +119,7 @@ async def bot_start(event):
         else:
             start_msg = f"**👋 Hai** {mention}**!**\
                         \n\n**Saya adalah {my_first}** \
-                        \n**Anda dapat Menghubungi [{user.first_name}](tg://user?id={user.id}) dari sini.**\
+                        \n**Anda dapat Menghubungi [{OWNER}](tg://user?id={OWNER_ID}) dari sini.**\
                         \n**Jangan Melakukan Spam Atau anda akan diBanned**\
                         \n\n**Powered by** [UserBot](https://github.com/mrismanaziz/Man-Userbot)"
         buttons = [
