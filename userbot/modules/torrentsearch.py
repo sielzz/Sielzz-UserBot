@@ -14,7 +14,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 from userbot import CMD_HANDLER as cmd
-from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot import CMD_HELP, bot
 from userbot.events import man_cmd
 
 
@@ -43,7 +43,7 @@ async def gengkapak(e):
     if not listdata:
         return await e.edit("**Error:** `No results found`")
 
-    tsfileloc = f"{TEMP_DOWNLOAD_DIRECTORY}/{query}.txt"
+    tsfileloc = f"./downloads/{query}.txt"
     with open(tsfileloc, "w+", encoding="utf8") as out_file:
         out_file.write(str(listdata))
     fd = codecs.open(tsfileloc, "r", encoding="utf-8")
