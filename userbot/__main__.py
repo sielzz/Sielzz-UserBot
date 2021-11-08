@@ -108,7 +108,7 @@ async def autobot():
             await bot.send_message(bf, f"@{username}")
             await asyncio.sleep(1)
             await bot.send_message(bf, "Search")
-            await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username])) 
+            await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username]))
             await bot.send_message(
                 BOTLOG_CHATID,
                 f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}",
@@ -127,7 +127,7 @@ async def autobot():
         await bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
         await bot.send_message(bf, "Search")
-        await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username])) 
+        await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username]))
         await bot.send_message(
             BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}"
         )
