@@ -62,9 +62,7 @@ async def ban_user_from_bot(user, reason, reply_to=None):
         add_user_to_bl(user.id, get_display_name(user), user.username, reason, date)
     except Exception as e:
         LOGS.error(str(e))
-    banned_msg = (
-        f"**Anda Telah Dibanned Selamanya.\nKarena:** `{reason}`"
-    )
+    banned_msg = f"**Anda Telah Dibanned Selamanya.\nKarena:** `{reason}`"
     await tgbot.send_message(user.id, banned_msg)
     info = f"**#Banned_Bot_PM_User**\
             \n**First Name:** {_format.mentionuser(get_display_name(user) , user.id)}\
