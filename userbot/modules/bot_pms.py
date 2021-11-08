@@ -22,7 +22,7 @@ from userbot import (
     GROUP,
     SUDO_USERS,
     tgbot,
-    uid,
+    user,
 )
 from userbot.core import check_owner, pool
 from userbot.modules.botmanagers import ban_user_from_bot
@@ -44,7 +44,7 @@ from userbot.utils.logger import logging
 LOGS = logging.getLogger(__name__)
 
 botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
-OWNER_ID = uid
+OWNER_ID = user.id
 
 
 class FloodConfig:
@@ -119,7 +119,7 @@ async def bot_start(event):
         else:
             start_msg = f"**👋 Hai** {mention}**!**\
                         \n\n**Saya adalah {my_first}** \
-                        \n**Anda dapat Menghubungi {ALIVE_NAME} dari sini.**\
+                        \n**Anda dapat Menghubungi [{user.first_name}](tg://user?id={user.id}) dari sini.**\
                         \n**Jangan Melakukan Spam Atau anda akan diBanned**\
                         \n\n**Powered by** [UserBot](https://github.com/mrismanaziz/Man-Userbot)"
         buttons = [
