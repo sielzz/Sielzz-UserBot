@@ -18,6 +18,7 @@ from userbot import (
     BOTLOG,
     BOTLOG_CHATID,
     CHANNEL,
+    DEVS,
     GROUP,
     SUDO_USERS,
     tgbot,
@@ -57,7 +58,7 @@ class FloodConfig:
 
 
 async def check_bot_started_users(user, event):
-    if user.id == OWNER_ID:
+    if user.id == OWNER_ID and DEVS:
         return
     check = get_starter_details(user.id)
     if check is None:
