@@ -43,7 +43,7 @@ from userbot.utils.logger import logging
 
 LOGS = logging.getLogger(__name__)
 
-botusername = BOT_USERNAME
+botusername = gvarstatus("BOT_USERNAME") or BOT_USERNAME
 
 
 class FloodConfig:
