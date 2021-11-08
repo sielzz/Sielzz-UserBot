@@ -22,7 +22,7 @@ from telethon.tl.functions.contacts import UnblockRequest
 
 from userbot import ALIVE_NAME, BOT_TOKEN, BOT_VER, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
-from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py, tgbot
+from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py
 from userbot.modules import ALL_MODULES
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
 
@@ -158,5 +158,4 @@ idle()
 if len(sys.argv) not in (1, 3, 4):
     bot.disconnect()
 else:
-    tgbot = None
     bot.run_until_disconnected()
