@@ -17,7 +17,7 @@ from random import randint
 
 from pytgcalls import idle
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-from telethon.tl.functions.channels import JoinChannelRequest
+from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
 from telethon.tl.functions.contacts import UnblockRequest
 
 from userbot import ALIVE_NAME, BOT_TOKEN, BOT_VER, BOTLOG_CHATID
@@ -62,7 +62,7 @@ async def autobot():
     if who.username:
         username = who.username + "_bot"
     else:
-        username = "man" + (str(who.id))[5:] + "_userbot"
+        username = (str(who.id))[5:] + "userbot"
     bf = "@BotFather"
     await bot(UnblockRequest(bf))
     await bot.send_message(bf, "/cancel")
@@ -95,7 +95,7 @@ async def autobot():
     await bot.send_read_acknowledge("botfather")
     if isdone.startswith("Sorry,"):
         ran = randint(1, 100)
-        username = "man" + (str(who.id))[6:] + str(ran) + "_userbot"
+        username = (str(who.id))[6:] + str(ran) + "userbot"
         await bot.send_message(bf, username)
         await asyncio.sleep(1)
         nowdone = (await bot.get_messages(bf, limit=1))[0].text
@@ -108,6 +108,7 @@ async def autobot():
             await bot.send_message(bf, f"@{username}")
             await asyncio.sleep(1)
             await bot.send_message(bf, "Search")
+            await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username])) 
             await bot.send_message(
                 BOTLOG_CHATID,
                 f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}",
@@ -126,6 +127,7 @@ async def autobot():
         await bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
         await bot.send_message(bf, "Search")
+        await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username])) 
         await bot.send_message(
             BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}"
         )
