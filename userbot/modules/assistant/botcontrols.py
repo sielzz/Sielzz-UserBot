@@ -124,7 +124,10 @@ async def ban_starters(event):
     await edit_or_reply(event, msg)
 
 
-@tgbot.on(events.NewMessage(pattern="^/ban\\s+([\\s\\S]*)", from_users=OWNER_ID))
+@tgbot.on(
+    events.NewMessage(
+        pattern="^/ban\\s+([\\s\\S]*)",
+        from_users=OWNER_ID))
 async def ban_botpms(event):
     user_id, reason = await get_user_and_reason(event)
     reply_to = await reply_id(event)
@@ -160,7 +163,10 @@ async def ban_botpms(event):
     await event.reply(msg)
 
 
-@tgbot.on(events.NewMessage(pattern="^/unban(?:\\s|$)([\\s\\S]*)", from_users=OWNER_ID))
+@tgbot.on(
+    events.NewMessage(
+        pattern="^/unban(?:\\s|$)([\\s\\S]*)",
+        from_users=OWNER_ID))
 async def ban_botpms(event):
     user_id, reason = await get_user_and_reason(event)
     reply_to = await reply_id(event)

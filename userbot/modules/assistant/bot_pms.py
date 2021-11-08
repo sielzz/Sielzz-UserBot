@@ -71,7 +71,11 @@ async def check_bot_started_users(user, event):
                 \n**ID: **`{user.id}`\
                 \n**Action: **Telah Me-Restart saya"
     try:
-        add_starter_to_db(user.id, get_display_name(user), start_date, user.username)
+        add_starter_to_db(
+            user.id,
+            get_display_name(user),
+            start_date,
+            user.username)
     except Exception as e:
         LOGS.error(str(e))
     if BOTLOG:
@@ -80,9 +84,8 @@ async def check_bot_started_users(user, event):
 
 @tgbot.on(
     events.NewMessage(
-        pattern=f"^/start({botusername})?([\\s]+)?$", func=lambda e: e.is_private
-    )
-)
+        pattern=f"^/start({botusername})?([\\s]+)?$",
+        func=lambda e: e.is_private))
 async def bot_start(event):
     chat = await event.get_chat()
     user = await event.client.get_me()
@@ -163,7 +166,13 @@ async def bot_pms(event):
     if chat.id != OWNER_ID:
         msg = await event.forward_to(OWNER_ID)
         try:
-            add_user_to_db(msg.id, get_display_name(chat), chat.id, event.id, 0, 0)
+            add_user_to_db(
+                msg.id,
+                get_display_name(chat),
+                chat.id,
+                event.id,
+                0,
+                0)
         except Exception as e:
             LOGS.error(str(e))
             if BOTLOG:
@@ -234,7 +243,13 @@ async def bot_pms_edit(event):
             )
             msg = await event.forward_to(BOTLOG_CHATID)
             try:
-                add_user_to_db(msg.id, get_display_name(chat), chat.id, event.id, 0, 0)
+                add_user_to_db(
+                    msg.id,
+                    get_display_name(chat),
+                    chat.id,
+                    event.id,
+                    0,
+                    0)
             except Exception as e:
                 LOGS.error(str(e))
                 if BOTLOG:
@@ -372,16 +387,14 @@ async def send_flood_alert(user_) -> None:
         f"  First Name: {_format.mentionuser(get_display_name(user_), user_.id)}"
         f"  User ID: `{user_.id}`\n"
         f"\n\n**Is spamming your bot !** ->  [ Flood Rate ({flood_count}) ]\n"
-        "**Quick Action:** Diabaikan dari Bot untuk sementara waktu."
-    )
+        "**Quick Action:** Diabaikan dari Bot untuk sementara waktu.")
 
     if found:
         if flood_count >= FloodConfig.AUTOBAN:
             if user_.id in SUDO_USERS:
                 sudo_spam = (
                     f"**Sudo User** {_format.mentionuser(user_.first_name , user_.id)}:\n **User ID:** `{user_.id}`\n\n"
-                    "**Membanjiri bot Anda!, Ketik** `.delsudo` **untuk menghapus pengguna dari Sudo.**"
-                )
+                    "**Membanjiri bot Anda!, Ketik** `.delsudo` **untuk menghapus pengguna dari Sudo.**")
                 if BOTLOG:
                     await tgbot.send_message(BOTLOG_CHATID, sudo_spam)
             else:
