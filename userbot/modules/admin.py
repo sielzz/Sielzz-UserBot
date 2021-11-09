@@ -30,7 +30,6 @@ from telethon.tl.types import (
     MessageEntityMentionName,
     MessageMediaPhoto,
 )
-from telethon.utils import get_display_name
 
 from userbot import ALIVE_NAME, BOTLOG, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
@@ -109,13 +108,11 @@ async def set_group_photo(event):
                 return await edit_delete(event, PP_ERROR)
             except Exception as e:
                 return await edit_delete(event, f"**ERROR : **`{str(e)}`")
-            process = "Diperbarui"
     else:
         try:
             await event.client(EditPhotoRequest(event.chat_id, InputChatPhotoEmpty()))
         except Exception as e:
             return await edit_delete(event, f"**ERROR : **`{e}`")
-        process = "Dihapus"
         await edit_delete(event, "**Foto Profil Grup Berhasil dihapus.**", 30)
 
 
@@ -197,15 +194,17 @@ async def ban(bon):
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await edit_or_reply(bon,
+        await edit_or_reply(
+            bon,
             r"\\**#Banned_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{str(user.id)}`\n"
-            f"**Reason:** `{reason}`"
+            f"**Reason:** `{reason}`",
         )
     else:
-        await edit_or_reply(bon,
-            f"\\\**#Banned_User**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {ALIVE_NAME}`"
+        await edit_or_reply(
+            bon,
+            f"\\\**#Banned_User**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {ALIVE_NAME}`",
         )
 
 
@@ -261,17 +260,20 @@ async def spider(spdr):
     self_user = await spdr.client.get_me()
 
     if user.id == self_user.id:
-        return await edit_or_reply(spdr, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**")
+        return await edit_or_reply(
+            spdr, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**"
+        )
 
     if user.id in DEVS:
         return await edit_or_reply(spdr, "**Gagal Mute, Dia Adalah Pembuat Saya 🤪**")
 
     # If everything goes well, do announcing and mute
-    await edit_or_reply(spdr,
+    await edit_or_reply(
+        spdr,
         r"\\**#Muted_User**//"
         f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
         f"**User ID:** `{user.id}`\n"
-        f"**Action:** `Mute by {ALIVE_NAME}`"
+        f"**Action:** `Mute by {ALIVE_NAME}`",
     )
     if mute(spdr.chat_id, user.id) is False:
         return await edit_delete(spdr, "**ERROR:** `Pengguna Sudah Dibisukan.`")
@@ -280,18 +282,20 @@ async def spider(spdr):
 
         # Announce that the function is done
         if reason:
-            await edit_or_reply(spdr,
+            await edit_or_reply(
+                spdr,
                 r"\\**#DMute_User**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
-                f"**Reason:** `{reason}`"
+                f"**Reason:** `{reason}`",
             )
         else:
-            await edit_or_reply(spdr,
+            await edit_or_reply(
+                spdr,
                 r"\\**#DMute_User**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
-                f"**Action:** `DMute by {ALIVE_NAME}`"
+                f"**Action:** `DMute by {ALIVE_NAME}`",
             )
     except UserIdInvalidError:
         return await edit_delete(spdr, "**Terjadi ERROR!**")
@@ -609,8 +613,9 @@ async def kick(usr):
             f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**\n**Alasan:** `{reason}`"
         )
     else:
-        await edit_delete(usr,
-            f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**"
+        await edit_delete(
+            usr,
+            f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**",
         )
 
 
