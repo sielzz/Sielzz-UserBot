@@ -55,7 +55,7 @@ async def autobot():
         return addgvar("BOT_TOKEN", BOT_TOKEN)
     await bot.start()
     await bot.send_message(
-        BOTLOG_CHATID, "SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather"
+        BOTLOG_CHATID, "**SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather**"
     )
     who = await bot.get_me()
     name = who.first_name + " Assistant Bot"
@@ -131,7 +131,7 @@ async def autobot():
             await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username]))
             await bot.send_message(
                 BOTLOG_CHATID,
-                f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}",
+                f"**BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}**",
             )
         else:
             LOGS.info(
@@ -149,7 +149,7 @@ async def autobot():
         await bot.send_message(bf, "Search")
         await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username]))
         await bot.send_message(
-            BOTLOG_CHATID, f"BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}"
+            BOTLOG_CHATID, f"**BERHASIL MEMBUAT BOT TELEGRAM DENGAN USERNAME @{username}**"
         )
     else:
         LOGS.info(
