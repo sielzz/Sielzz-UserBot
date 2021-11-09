@@ -53,6 +53,8 @@ async def autobot():
         return
     if BOT_TOKEN:
         return addgvar("BOT_TOKEN", BOT_TOKEN)
+    elif BOT_USERNAME:
+        return addgvar("BOT_USERNAME", BOT_USERNAME)
     await bot.start()
     await bot.send_message(
         BOTLOG_CHATID, "SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather"
