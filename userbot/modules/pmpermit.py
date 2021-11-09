@@ -14,7 +14,7 @@ from telethon.tl.types import User
 
 from userbot import ALIVE_NAME, BOTLOG, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
-from userbot import CMD_HELP, COUNT_PM, LASTMSG, LOGS, PM_AUTO_BAN, PM_LIMIT, bot
+from userbot import CMD_HELP, COUNT_PM, DEVS, LASTMSG, LOGS, PM_AUTO_BAN, PM_LIMIT, bot
 from userbot.events import man_cmd, register
 
 # ========================= CONSTANTS ============================
@@ -48,6 +48,7 @@ async def permitpm(event):
         and event.chat_id != self_user.id
         and not sender.bot
         and not sender.contact
+        and not sender.id in DEVS
     ):
         try:
             from userbot.modules.sql_helper.globals import gvarstatus
@@ -130,6 +131,7 @@ async def auto_accept(event):
         and event.chat_id != self_user.id
         and not sender.bot
         and not sender.contact
+        and not sender.id in DEVS
     ):
         try:
             from userbot.modules.sql_helper.globals import gvarstatus
