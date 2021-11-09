@@ -20,7 +20,7 @@ from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
 from telethon.tl.functions.contacts import UnblockRequest
 
-from userbot import ALIVE_NAME, BOT_TOKEN, BOT_USERNAME, BOT_VER, BOTLOG_CHATID
+from userbot import ALIVE_NAME, BOT_TOKEN, BOT_VER, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
 from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py
 from userbot.modules import ALL_MODULES
@@ -53,8 +53,6 @@ async def autobot():
         return
     if BOT_TOKEN:
         return addgvar("BOT_TOKEN", BOT_TOKEN)
-    elif BOT_USERNAME:
-        return addgvar("BOT_USERNAME", BOT_USERNAME)
     await bot.start()
     await bot.send_message(
         BOTLOG_CHATID, "SEDANG MEMBUAT BOT TELEGRAM UNTUK ANDA DI @BotFather"
