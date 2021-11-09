@@ -16,12 +16,10 @@ jobs:
       - name: Remove unused imports and variables
         run: |
           autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports .
-      - name: lint with isort
+      - name: lint with isort and black
         run: |
           isort .
-      - name: lint with black
-        run: |
-          black --exclude "exampleconfig\.py" .
+          black .
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
