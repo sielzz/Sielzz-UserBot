@@ -125,7 +125,9 @@ async def autobot():
             await asyncio.sleep(1)
             await bot.send_message(bf, f"@{username}")
             await asyncio.sleep(1)
-            await bot.send_message(bf, f"✨ Owner ~ {who.first_name} ✨\n\n✨ Powered By ~ @Lunatic0de ✨")
+            await bot.send_message(
+                bf, f"✨ Owner ~ {who.first_name} ✨\n\n✨ Powered By ~ @Lunatic0de ✨"
+            )
             await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [username]))
             await bot.send_message(
                 BOTLOG_CHATID,
