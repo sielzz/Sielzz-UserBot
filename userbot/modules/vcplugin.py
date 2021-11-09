@@ -169,9 +169,9 @@ async def vc_play(event):
                     await botman.edit(f"`{ep}`")
 
     else:
-        botman = await edit_or_reply(replied, "`Downloading`")
+        botman = await replied.edit("`Downloading`")
         dl = await replied.download_media()
-        link = replied.link
+        link = replied.message_link
         if replied.audio:
             songname = "Telegram Music Player..."
         elif replied.voice:
@@ -249,9 +249,9 @@ async def vc_vplay(event):
                     await xnxx.edit(f"`{ep}`")
 
     elif replied:
-        xnxx = await edit_or_reply(replied, "`Downloading`")
+        xnxx = await replied.edit("`Downloading`")
         dl = await replied.download_media()
-        link = replied.link
+        link = replied.message_link
         if len(event.text.split()) < 2:
             RESOLUSI = 720
         else:
