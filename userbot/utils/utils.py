@@ -2,7 +2,6 @@
 # FROM Man-Userbot <https://github.com/mrismanaziz/Man-Userbot>
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-
 import asyncio
 import importlib
 import logging
@@ -15,7 +14,6 @@ from telethon.tl.functions.contacts import UnblockRequest
 
 from userbot import BOT_TOKEN, BOTLOG_CHATID, CMD_HELP, LOGS, bot
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
-from userbot.utils import start_assistant
 
 
 async def autobot():
