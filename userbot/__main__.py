@@ -10,6 +10,7 @@
 #
 """ Userbot start point """
 
+import glob
 import sys
 from importlib import import_module
 from pathlib import Path
@@ -50,8 +51,6 @@ LOGS.info(f"Man-Userbot ⚙️ V{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
 
 async def assistants():
     if assistant == "ON":
-        import glob
-
         path = "userbot/modules/assistant/*.py"
         files = glob.glob(path)
         for name in files:
