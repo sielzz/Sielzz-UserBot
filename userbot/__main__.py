@@ -12,7 +12,6 @@
 
 import asyncio
 import sys
-import glob
 from importlib import import_module
 from pathlib import Path
 from random import randint
@@ -185,17 +184,20 @@ async def autobot():
 bot.loop.create_task(autobot())
 
 assistant = os.environ.get("BOTMODE", None)
+
+
 async def assistants():
     if assistant == "ON":
         import glob
-        path = 'userbot/modules/assistant/*.py'
+
+        path = "userbot/modules/assistant/*.py"
         files = glob.glob(path)
         for name in files:
             with open(name) as f:
                 path1 = Path(f.name)
                 shortname = path1.stem
                 try:
-                    start_assistant(shortname.replace(".py", ""))   
+                    start_assistant(shortname.replace(".py", ""))
                 except Exception as e:
                     print(e)
     else:
