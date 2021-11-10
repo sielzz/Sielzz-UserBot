@@ -4,26 +4,16 @@
 
 
 import asyncio
-import sys
-from importlib import import_module
-from pathlib import Path
-from random import randint
-
-from pytgcalls import idle
-from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
-from telethon.tl.functions.contacts import UnblockRequest
-
 import importlib
 import logging
 import sys
 from pathlib import Path
+from random import randint
 
-from userbot import CMD_HELP, LOGS, bot
-from userbot import ALIVE_NAME, BOT_TOKEN, BOT_VER, BOTLOG_CHATID
-from userbot import CMD_HANDLER as cmd
-from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py
-from userbot.modules import ALL_MODULES
+from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.tl.functions.contacts import UnblockRequest
+
+from userbot import BOT_TOKEN, BOTLOG_CHATID, CMD_HELP, LOGS, bot
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
 from userbot.utils import start_assistant
 
