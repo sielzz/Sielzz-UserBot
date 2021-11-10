@@ -11,6 +11,7 @@
 """ Userbot start point """
 
 import glob
+import os
 import sys
 from importlib import import_module
 from pathlib import Path
