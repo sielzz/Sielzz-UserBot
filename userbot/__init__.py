@@ -133,6 +133,8 @@ SUDO_HANDLER = os.environ.get("SUDO_HANDLER", r"$")
 # Owner ID
 OWNER_ID = int(os.environ.get("OWNER_ID") or 0)
 
+BOTMODE = os.environ.get("BOTMODE", None)
+
 # Support
 GROUP = os.environ.get("GROUP", "SharingUserbot")
 CHANNEL = os.environ.get("CHANNEL", "Lunatic0de")
