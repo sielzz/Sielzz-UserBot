@@ -2,13 +2,10 @@
 # FROM Man-Userbot <https://github.com/mrismanaziz/Man-Userbot>
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-import importlib
-import logging
 import os
-import sys
 from pathlib import Path
 
-from userbot import CMD_HELP, LOGS, bot
+from userbot import CMD_HELP, bot
 from userbot.events import man_cmd
 from userbot.utils import edit_or_reply, load_module, remove_plugin, reply_id
 
