@@ -10,22 +10,18 @@
 #
 """ Userbot start point """
 
-import asyncio
 import sys
 from importlib import import_module
 from pathlib import Path
-from random import randint
 
 from pytgcalls import idle
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
-from telethon.tl.functions.contacts import UnblockRequest
+from telethon.tl.functions.channels import JoinChannelRequest
 
-from userbot import ALIVE_NAME, BOT_TOKEN, BOT_VER, BOTLOG_CHATID
+from userbot import ALIVE_NAME, BOT_VER, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
 from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py
 from userbot.modules import ALL_MODULES
-from userbot.modules.sql_helper.globals import addgvar, gvarstatus
 from userbot.utils import autobot, start_assistant
 
 assistant = os.environ.get("BOTMODE", None)
@@ -50,6 +46,7 @@ LOGS.info(
 )
 
 LOGS.info(f"Man-Userbot ⚙️ V{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
+
 
 async def assistants():
     if assistant == "ON":
