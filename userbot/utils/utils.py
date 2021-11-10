@@ -55,7 +55,7 @@ def start_assistant(shortname):
         mod.tgbot = bot.tgbot
         spec.loader.exec_module(mod)
         sys.modules["userbot.modules.assistant" + shortname] = mod
-        LOGS.info("Successfully imported" + shortname)
+        LOGS.info("Assistant Successfully imported" + shortname)
 
 
 def remove_plugin(shortname):
