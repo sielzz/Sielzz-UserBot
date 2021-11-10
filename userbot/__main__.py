@@ -12,7 +12,9 @@
 
 import asyncio
 import sys
+import glob
 from importlib import import_module
+from pathlib import Path
 from random import randint
 
 from pytgcalls import idle
@@ -25,6 +27,7 @@ from userbot import CMD_HANDLER as cmd
 from userbot import LOGS, UPSTREAM_REPO_BRANCH, bot, call_py
 from userbot.modules import ALL_MODULES
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
+from userbot.utils import start_assistant
 
 INVALID_PH = (
     "\nERROR: Nomor Telepon yang kamu masukkan SALAH."
@@ -180,6 +183,23 @@ async def autobot():
 
 
 bot.loop.create_task(autobot())
+
+assistant = os.environ.get("BOTMODE", None)
+async def assistants():
+    if assistant == "ON":
+        import glob
+        path = 'userbot/modules/assistant/*.py'
+        files = glob.glob(path)
+        for name in files:
+            with open(name) as f:
+                path1 = Path(f.name)
+                shortname = path1.stem
+                try:
+                    start_assistant(shortname.replace(".py", ""))   
+                except Exception as e:
+                    print(e)
+    else:
+        LOGS.info("Assistant Not Loaded ")
 
 
 async def man_userbot_on():
