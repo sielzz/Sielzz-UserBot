@@ -64,7 +64,9 @@ async def assistants():
     else:
         LOGS.info("Assistant Not Loaded ")
 
+
 bot.loop.run_until_complete(assistants())
+
 
 async def man_userbot_on():
     try:
