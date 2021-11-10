@@ -87,6 +87,7 @@ async def man_userbot_on():
 # DI HAPUS GUA GBAN YA 🥴 GUA TANDAIN LU AKUN TELENYA 😡
 bot.loop.create_task(man_userbot_on())
 bot.loop.create_task(autobot())
+bot.loop.run_until_complete(assistants())
 idle()
 if len(sys.argv) not in (1, 3, 4):
     bot.disconnect()
