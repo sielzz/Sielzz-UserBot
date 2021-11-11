@@ -71,7 +71,7 @@ async def _(event):
 @bot.on(man_cmd(outgoing=True, pattern=r"stoi$"))
 async def sticker_to_png(sticker):
     img = await sticker.get_reply_message()
-    if not img.document or not img.is_reply
+    if not img.document or not img.is_reply:
         return await sticker.edit("**Harap balas ke stiker**")
     await sticker.edit("`Berhasil Mengambil Sticker!`")
     image = io.BytesIO()
