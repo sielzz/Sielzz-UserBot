@@ -158,7 +158,7 @@ async def vc_play(event):
                         AudioPiped(
                             ytlink,
                         ),
-                        stream_type=StreamType().pulse_stream,
+                        stream_type=StreamType().local_stream,
                     )
                     add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                     await botman.edit(
@@ -187,7 +187,7 @@ async def vc_play(event):
                 AudioPiped(
                     dl,
                 ),
-                stream_type=StreamType().pulse_stream,
+                stream_type=StreamType().local_stream,
             )
             add_to_queue(chat_id, songname, dl, link, "Audio", 0)
             await botman.edit(
@@ -238,7 +238,7 @@ async def vc_vplay(event):
                     await call_py.join_group_call(
                         chat_id,
                         AudioVideoPiped(ytlink, HighQualityAudio(), hmmm),
-                        stream_type=StreamType().pulse_stream,
+                        stream_type=StreamType().local_stream,
                     )
                     add_to_queue(chat_id, songname, ytlink, url, "Video", RESOLUSI)
                     await xnxx.edit(
@@ -274,7 +274,7 @@ async def vc_vplay(event):
             await call_py.join_group_call(
                 chat_id,
                 AudioVideoPiped(dl, HighQualityAudio(), hmmm),
-                stream_type=StreamType().pulse_stream,
+                stream_type=StreamType().local_stream,
             )
             add_to_queue(chat_id, songname, dl, link, "Video", RESOLUSI)
             await xnxx.edit(
@@ -306,7 +306,7 @@ async def vc_vplay(event):
                     await call_py.join_group_call(
                         chat_id,
                         AudioVideoPiped(ytlink, HighQualityAudio(), hmmm),
-                        stream_type=StreamType().pulse_stream,
+                        stream_type=StreamType().local_stream,
                     )
                     add_to_queue(chat_id, songname, ytlink, url, "Video", RESOLUSI)
                     await xnxx.edit(
