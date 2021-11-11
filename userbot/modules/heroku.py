@@ -220,7 +220,9 @@ async def _(dyno):
         )
     xx = await edit_or_reply(dyno, "**Sedang Mengambil Logs Heroku**")
     data = app.get_log()
-    await edit_or_reply(xx, data, deflink=True, linktext="**✣ Ini Logs Heroku Anda : Lihat**")
+    await edit_or_reply(
+        xx, data, deflink=True, linktext="**✣ Ini Logs Heroku Anda : Lihat**"
+    )
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"getsql ?(.*)"))
