@@ -6,6 +6,7 @@
 
 import io
 
+from PIL import Image
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
