@@ -518,7 +518,7 @@ async def _(event):
         reply_to=rep_msg,
     )
     await event.delete()
-    remove("rm sticker.png")
+    remove("sticker.png")
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"stoi$"))
