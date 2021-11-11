@@ -513,7 +513,9 @@ async def _(event):
     im = Image.open(foto).convert("RGB")
     im.save("sticker.png", "png")
     await event.client.send_file(
-        event.chat_id, "sticker.png", reply_to=rep_msg,
+        event.chat_id,
+        "sticker.png",
+        reply_to=rep_msg,
     )
     await event.delete()
     remove("rm sticker.png")
