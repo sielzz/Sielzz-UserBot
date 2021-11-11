@@ -243,7 +243,7 @@ async def approvepm(apprvpm):
     try:
         approve(uid)
     except IntegrityError:
-        return await apprvpm.edit("**Pesan Anda Sudah Diterima**")
+        return await apprvpm.edit("`TUAN KU KENZO TELAH MENGIRIM PESAN UNTUK ANDA 😯`")
 
     await apprvpm.edit(f"**Menerima Pesan Dari** [{name0}](tg://user?id={uid})")
 
