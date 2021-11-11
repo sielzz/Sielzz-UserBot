@@ -50,14 +50,11 @@ async def _(event):
 @bot.on(man_cmd(outgoing=True, pattern=r"get$"))
 async def _(event):
     rep_msg = await event.get_reply_message()
-
     if not event.is_reply or not rep_msg.sticker:
-        await event.edit("**Harap balas ke stiker.**")
-        return
+        return await event.edit("**Harap balas ke stiker**")
     await event.edit("`Mengconvert ke foto...`")
     foto = io.BytesIO()
     foto = await event.client.download_media(rep_msg.sticker, foto)
-
     im = Image.open(foto).convert("RGB")
     im.save("sticker.png", "png")
     await event.client.send_file(
@@ -65,7 +62,6 @@ async def _(event):
         "sticker.png",
         reply_to=rep_msg,
     )
-
     await event.delete()
     os.remove("sticker.png")
 
