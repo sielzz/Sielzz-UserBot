@@ -12,6 +12,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 from userbot import bot
 from userbot.events import man_cmd
+from userbot.utils import runcmd
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"itos$"))
@@ -64,6 +65,7 @@ async def _(event):
         reply_to=rep_msg,
     )
     await event.delete()
+    await runcmd("rm sticker.png")
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"stoi$"))
