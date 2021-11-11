@@ -523,9 +523,15 @@ async def _(event):
 
 @bot.on(man_cmd(outgoing=True, pattern=r"stoi$"))
 async def sticker_to_png(sticker):
+    if not sticker.is_reply:
+        await sticker.edit("**Harap balas ke stiker**")
+        return False
+
     img = await sticker.get_reply_message()
-    if not img.document or not img.is_reply:
-        return await sticker.edit("**Harap balas ke stiker**")
+    if not img.document:
+        await sticker.edit("**Maaf , Ini Bukan Sticker**")
+        return False
+
     await sticker.edit("`Berhasil Mengambil Sticker!`")
     image = io.BytesIO()
     await sticker.client.download_media(img, image)
