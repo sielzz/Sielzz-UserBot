@@ -44,7 +44,7 @@ async def man_userbot_on():
         if BOTLOG_CHATID != 0:
             await bot.send_message(
                 BOTLOG_CHATID,
-                f"🔥 **Sielzz-UserBot Aktif Yaa Ngentot!!!**\n━━\n➠ **Userbot Version -** `{BOT_VER}@{UPSTREAM_REPO_BRANCH}`\n➠ **Ketik** `{cmd}alive` **untuk Mengecheck Bot**\n━━",
+                f"🔥 **Sielzz-UserBot Aktif Yaa Ngentot!!!**\n━━\n➠ **Userbot Version -** `{BOT_VER} `\n➠ **Ketik** `{cmd}alive` **untuk Mengecheck Bot**\n━━",
             )
     except Exception as e:
         LOGS.info(str(e))
