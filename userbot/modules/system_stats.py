@@ -178,7 +178,7 @@ async def amireallyalive(alive):
     user = await bot.get_me()
     uptime = await get_readable_time((time.time() - StartTime))
     output = (
-        f"**[Man-Userbot](https://github.com/mrismanaziz/Man-Userbot) is Up and Running.**\n\n"
+        f"**[Sielzz-UserBot](https://github.com/sielzz/Sielzz-UserBot) is Up and Running.**\n\n"
         f"**{ALIVE_TEKS_CUSTOM}**\n\n"
         f"{ALIVE_EMOJI} **Master :** [{DEFAULTUSER}](tg://user?id={user.id}) \n"
         f"{ALIVE_EMOJI} **Modules :** `{len(modules)} Modules` \n"
