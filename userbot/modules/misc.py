@@ -116,7 +116,7 @@ async def repo_is_here(wannasee):
     await wannasee.edit(
         f"**Hey**, __I am using__ 🔥 **Sielzz-UserBot** 🔥\n\n"
         f"      __Thanks For Using me__\n\n"
-        f"✣ **Userbot Version :** `{BOT_VER}@{UPSTREAM_REPO_BRANCH}`\n"
+        f"✣ **Userbot Version :** `{BOT_VER} `\n"
         f"✣ **Group Support :** [Sielzz Support](t.me/sielzzsupport)\n"
         f"✣ **Channel Sielzz :** [Sielzz Project](t.me/sielzzproject)\n"
         f"✣ **Owner Repo :** [Sielzz](t.me/arsilaf)\n"
