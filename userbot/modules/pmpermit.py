@@ -243,9 +243,9 @@ async def approvepm(apprvpm):
     try:
         approve(uid)
     except IntegrityError:
-        return await apprvpm.edit("`TUAN KU KENZO TELAH MENGIRIM PESAN UNTUK ANDA 😯`")
+        return await apprvpm.edit("`TUAN KU TELAH MENGIRIM PESAN UNTUK ANDA 😯`")
 
-    await apprvpm.edit(f"**TUAN KU KENZO TELAH MENGIRIM PESAN UNTUK ANDA 😯** [{name0}](tg://user?id={uid})")
+    await apprvpm.edit(f"**TUAN KU TELAH MENERIMA PESAN ANDA** [{name0}](tg://user?id={uid})")
 
     if BOTLOG:
         await apprvpm.client.send_message(
