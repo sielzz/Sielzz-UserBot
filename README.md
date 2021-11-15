@@ -28,7 +28,7 @@ Gunakan bot ini dengan risiko Anda sendiri, dan gunakan dengan bijak.
 
 ## Updates dan support
 
-Follow Channel [@SielzzProject](https://t.me/sielzzproject) untuk info Update bot dan Gabung Group [@SielzzSupport](https://t.me/sielzzsupport) untuk untuk diskusi, pelaporan bug, dan bantuan tentang Man-Userbot.
+Follow Channel [@SielzzProject](https://t.me/sielzzproject) untuk info Update bot dan Gabung Group [@SielzzSupport](https://t.me/sielzzsupport) untuk untuk diskusi, pelaporan bug, dan bantuan tentang Sielzz-UserBot.
 
 ## © Credits
 #### Thanks To [Everyone](https://github.com/sielzz/Sielzz-UserBot/graphs/contributors) Who Has Helped Make This Userbot Awesome!
