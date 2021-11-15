@@ -15,6 +15,7 @@ from userbot import CMD_HELP, bot
 from userbot.events import man_cmd
 
 GCAST_BLACKLIST = [
+    -1001533465559,  # SielzzSupport
     -1001473548283,  # SharingUserbot
     -1001433238829,  # TedeSupport
     -1001476936696,  # AnosSupport
